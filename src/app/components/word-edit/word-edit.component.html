@@ -1,0 +1,67 @@
+<div *ngIf="form">
+  <form  [formGroup]="form" (submit)="onSubmit()">
+    <div class="word-detail-container">
+      <mat-form-field>
+        <input matInput placeholder="id" formControlName="id">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="language_id" formControlName="language_id">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="theme_id" formControlName="theme_id" [(value)]="form.get('theme_id').value">
+          <mat-option *ngFor="let theme of themes" [value]="theme.id">
+            {{ theme.id + ' ' + theme.in_language }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('theme_id').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="language_level" formControlName="language_level">
+        <mat-error *ngIf="form.get('language_level').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+        <mat-error *ngIf="form.get('language_level').hasError('pattern')">
+          Cette donnée doit être numérique
+        </mat-error>
+        <mat-error *ngIf="form.get('language_level').hasError('min')">
+          La valeur doit être > 0
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="in_french" formControlName="in_french" (keyup)="onKey($event)">
+        <mat-error *ngIf="form.get('in_french').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+        <mat-error *ngIf="form.get('in_french').hasError('existeDeja')">
+          Ce mot existe déjà dans le ou les thèmes ({{form.get('in_french').errors['existeDeja']}})
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="sort_word" formControlName="sort_word">
+        <mat-error *ngIf="form.get('sort_word').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="in_language" formControlName="in_language">
+        <mat-error *ngIf="form.get('theme_id').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="pronunciation" formControlName="pronunciation">
+        <mat-error *ngIf="form.get('pronunciation').hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="last_update" formControlName="last_update">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button type="submit">Submit</button>
+    <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+  </form>
+</div>
+

@@ -1,0 +1,37 @@
+<form  [formGroup]="form" (submit)="onSubmit()">
+  <div class="language-detail-container">
+    <mat-form-field>
+      <input matInput placeholder="id" formControlName="id">
+    </mat-form-field>
+    <mat-form-field>
+     <input matInput placeholder="Entrez un code à 2 lettres spécifique à la langue" formControlName="language_id" required>
+      <mat-error *ngIf="form.get('language_id').hasError('required')">
+        Cette donnée est obligatoire
+      </mat-error>
+      <mat-error *ngIf="form.get('language_id').hasError('maxlength')">
+        Valeur trop longue
+      </mat-error>
+      <mat-error *ngIf="form.get('language_id').hasError('minlength')">
+        Valeur trop courte
+      </mat-error>
+      <mat-error *ngIf="form.get('language_id').hasError('existeDeja')">
+        Cette valeur est déjà utilisée
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Entrez le nom de la langue" formControlName="name" required>
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Cette donnée est obligatoire
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Entrez le nom du fichier contenant l'icône du drapeau du pays concerné" formControlName="icon" required>
+      <mat-error *ngIf="form.get('icon').hasError('required')">
+        Cette donnée est obligatoire
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button type="submit">Submit</button>
+  <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+</form>
+

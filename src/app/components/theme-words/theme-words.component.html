@@ -1,0 +1,63 @@
+<div *ngIf="theme">
+<mat-card >
+  <mat-card-title>{words.length, plural, =0 {Pas de mot pour le thème }
+                                         =1 {1 mot pour le thème }
+                                         other {{{words.length}} mots pour le thème }} "{{theme.in_language}}"</mat-card-title>
+  <mat-card-content>
+    <tr>
+      <td>id :</td>
+      <td><strong>{{theme.id}}</strong></td>
+    </tr>
+    <tr>
+      <td>language_id :&nbsp;</td>
+      <td><strong>{{theme.language_id}}</strong></td>
+    </tr>
+    <tr>
+      <td>number :</td>
+      <td><strong>{{theme.number}}</strong></td>
+    </tr>
+    <tr>
+      <td>last_upate :</td>
+      <td><strong>{{theme.last_update}}</strong></td>
+    </tr>
+  </mat-card-content>
+</mat-card>
+  <div class="themes-container mat-elevation-z8">
+    <button mat-icon-button *ngIf="globales.administrateur" routerLink="/themes/{{theme.id}}/words/new">
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-table #table [dataSource]="words">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- data Columns -->
+      <!-- data Columns -->
+      <div *ngFor="let column of displayedColumns.slice(0, -1)">
+        <ng-container matColumnDef="{{column}}">
+          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let word"> {{word[column]}} </mat-cell>
+        </ng-container>
+      </div>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> {{globales.administrateur ? 'Actions' : 'Action'}} </mat-header-cell>
+        <mat-cell *matCellDef="let word">
+          <button mat-icon-button class="icon-button" routerLink="/words/{{word.id}}">
+            <mat-icon class="icon">search</mat-icon>
+          </button>
+          <button mat-icon-button class="icon-button" *ngIf="globales.administrateur" routerLink="/words/{{word.id}}/edit">
+            <mat-icon class="icon">mode_edit</mat-icon>
+          </button>
+          <button type="button" mat-icon-button class="icon-button" *ngIf="globales.administrateur" (click)="delete(word)">
+            <mat-icon class="icon">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

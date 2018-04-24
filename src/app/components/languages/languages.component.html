@@ -1,0 +1,34 @@
+<div class="langues-container mat-elevation-z8">
+  <button mat-icon-button *ngIf="globales.administrateur" routerLink="/languages/new">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-table #table [dataSource]="globales.languages">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- data Columns -->
+    <div *ngFor="let column of displayedColumns.slice(0, -1)">
+      <ng-container matColumnDef="{{column}}">
+        <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+        <mat-cell *matCellDef="let language"> {{language[column]}}</mat-cell>
+      </ng-container>
+    </div>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> {{globales.administrateur ? 'Actions' : ''}} </mat-header-cell>
+      <mat-cell *matCellDef="let language">
+        <button mat-icon-button *ngIf="globales.administrateur" routerLink="/languages/{{language.id}}">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button type="button" mat-icon-button *ngIf="globales.administrateur" (click)="delete(language)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

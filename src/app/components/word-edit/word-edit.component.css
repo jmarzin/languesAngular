@@ -1,0 +1,14 @@
+.word-detail-container {
+  display: flex;
+  flex-direction: column;
+  color: blue;
+}
+
+.word-detail-container > * {
+  width: 100%;
+}
+
+.ng-pending::after {
+  display: inline-block;
+  content: 'Vérification en cours...';
+}

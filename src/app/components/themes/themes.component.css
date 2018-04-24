@@ -1,0 +1,18 @@
+.icon {
+  height: 18px;
+  width: 18px;
+}
+.icon-button {
+  height: 30px;
+  width: 30px;
+  line-height: 24px;
+}
+
+.mat-column-id {
+  flex: 0 0 50px
+}
+
+.mat-column-language_id, .mat-column-number, .mat-column-last_update, .mat-column-actions {
+  flex: 0 0 100px
+}
+

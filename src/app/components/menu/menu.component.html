@@ -1,0 +1,22 @@
+<mat-menu #rootMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="subMenu">Langues</button>
+  <div *ngIf="globales.currentLanguage">
+    <button mat-menu-item routerLink="/themes">Thèmes</button>
+    <button mat-menu-item>Mots</button>
+    <button mat-menu-item>Verbes</button>
+    <button mat-menu-item>Formes Verbales</button>
+  </div>
+  <button mat-menu-item routerLink="/admin"> Administration</button>
+</mat-menu>
+
+<mat-menu #subMenu="matMenu">
+  <button mat-menu-item *ngFor="let language of globales.languages" (click)="setCurrentLanguage(language)">
+    <mat-icon *ngIf="globales.currentLanguage && globales.currentLanguage.name === language.name">done</mat-icon>
+    <span>{{language.name}}</span></button>
+  <button mat-menu-item routerLink="/languages">Gestion</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="rootMenu">
+  <mat-icon *ngIf="!globales.currentLanguage">more_vert</mat-icon>
+  <img *ngIf="globales.currentLanguage" [src]="iconUrl" height="40" width="40"/>
+</button>

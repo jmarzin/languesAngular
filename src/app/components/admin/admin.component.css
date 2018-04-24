@@ -1,0 +1,12 @@
+.password-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-container > * {
+  width: 100%;
+}
+
+.green {
+  color: green;
+}

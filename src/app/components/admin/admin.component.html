@@ -1,0 +1,11 @@
+<div class="password-container">
+  <div *ngIf="this.globales.administrateur" class="green">Vous êtes administrateur !</div>
+  <form *ngIf="!this.globales.administrateur" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput type="password" placeholder="Entrez le mot de passe" [formControl]="mdp" required autofocus>
+      <mat-error *ngIf="mdp.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</div>
+

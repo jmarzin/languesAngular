@@ -1,0 +1,55 @@
+<div *ngIf="theme">
+  <mat-card>
+    <mat-card-content>
+      <tr>
+        <td>id &nbsp;</td>
+        <td><strong>{{word.id}}</strong></td>
+      </tr>
+      <tr>
+        <td>language_id &nbsp;</td>
+        <td><strong>{{word.language_id}}</strong></td>
+      </tr>
+      <tr>
+        <td>theme &nbsp;</td>
+        <td><strong>{{word.theme_id + ' ' + theme.in_language}}</strong></td>
+      </tr>
+      <tr>
+        <td>in_french &nbsp;</td>
+        <td><strong>{{word.in_french}}</strong></td>
+      </tr>
+      <tr>
+        <td>sort_word &nbsp;</td>
+        <td><strong>{{word.sort_word}}</strong></td>
+      </tr>
+      <tr>
+        <td>in_language &nbsp;</td>
+        <td><strong>{{word.in_language}}</strong></td>
+      </tr>
+      <tr>
+        <td>pronunciation &nbsp;</td>
+        <td><strong>{{word.pronunciation}}</strong></td>
+      </tr>
+      <tr>
+        <td>language_level &nbsp;</td>
+        <td><strong>{{word.language_level}}</strong></td>
+      </tr>
+      <tr>
+        <td>last_update &nbsp;</td>
+        <td><strong>{{word.in_french}}</strong></td>
+      </tr>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button *ngIf="globales.administrateur" routerLink="/words/edit/{{word.id}}">
+        <mat-icon class="icon">mode_edit</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="globales.administrateur" (click)="delete(word)">
+        <mat-icon class="icon">delete</mat-icon>
+      </button>
+      <button mat-icon-button (click) ="location.back()">
+        <mat-icon class="icon">arrow_back</mat-icon>
+      </button>
+      <button mat-raised-button routerLink="/themes/words/{{theme.id}}">Mots du thème</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
