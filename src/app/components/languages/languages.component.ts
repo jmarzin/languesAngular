@@ -17,7 +17,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = Object.getOwnPropertyNames(new Language()).concat('actions');
+    this.displayedColumns = ['actions'].concat(Object.getOwnPropertyNames(new Language()));
   }
 
   delete(language: Language): void {

@@ -12,7 +12,10 @@
   flex: 0 0 50px
 }
 
-.mat-column-language_id, .mat-column-number, .mat-column-last_update, .mat-column-actions {
+.mat-column-language_id, .mat-column-number, .mat-column-last_update {
   flex: 0 0 100px
 }
 
+.mat-column-actions {
+  flex: 0 0 150px
+}

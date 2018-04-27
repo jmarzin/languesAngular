@@ -16,7 +16,7 @@ export class ThemeWordsComponent implements OnInit {
   url: string;
   theme: Theme;
   words: Word[] = [];
-  displayedColumns: string[] = ['id', 'in_french', 'sort_word', 'in_language', 'actions'];
+  displayedColumns: string[] = ['actions', 'id', 'in_french', 'sort_word', 'in_language'];
 
   constructor(private route: ActivatedRoute,
               private themeService: ThemeService,

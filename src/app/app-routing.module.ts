@@ -9,6 +9,10 @@ import {ThemeWordsComponent} from './components/theme-words/theme-words.componen
 import {WordDetailComponent} from './components/word-detail/word-detail.component';
 import {WordEditComponent} from './components/word-edit/word-edit.component';
 import {WordsNewComponent} from './components/words-new/words-new.component';
+import {FormsTypesComponent} from './components/forms-types/forms-types.component';
+import {FormsTypesEditComponent} from './components/forms-types-edit/forms-types-edit.component';
+import {VerbsComponent} from './components/verbs/verbs.component';
+import {VerbDetailComponent} from './components/verb-detail/verb-detail.component';
 
 const routes: Routes = [
   { path: 'languages', component: LanguagesComponent },
@@ -21,7 +25,12 @@ const routes: Routes = [
   { path: 'themes/:id/words', component: ThemeWordsComponent},
   { path: 'words/:id', component: WordDetailComponent},
   { path: 'words/:id/edit', component: WordEditComponent},
-  { path: 'themes/:id/words/new', component: WordsNewComponent}
+  { path: 'themes/:id/words/new', component: WordsNewComponent},
+  { path: 'formstypes', component: FormsTypesComponent},
+  { path: 'formstypes/edit', component: FormsTypesEditComponent},
+  { path: 'verbs', component: VerbsComponent},
+  { path: 'verbs/new', component: VerbDetailComponent},
+  { path: 'verbs/edit/:id', component: VerbDetailComponent}
 ];
 
 @NgModule({

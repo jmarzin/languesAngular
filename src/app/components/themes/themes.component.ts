@@ -12,7 +12,6 @@ import {WordService} from '../../models/words/word.service';
 export class ThemesComponent implements OnInit {
 
   themes: Theme[];
-
   displayedColumns: string[];
 
   constructor(public globales: GlobalesService,
@@ -24,7 +23,7 @@ export class ThemesComponent implements OnInit {
   ngOnInit(): void {
     this.themeService.getThemes(this.globales.currentLanguage.language_id).
       subscribe(themes => this.themes = themes);
-    this.displayedColumns = Object.getOwnPropertyNames(new Theme).concat('actions');
+    this.displayedColumns = ['actions'].concat(Object.getOwnPropertyNames(new Theme));
   }
 
   delete(theme: Theme): void {
@@ -32,12 +31,13 @@ export class ThemesComponent implements OnInit {
       this.wordService.getWordsByTheme(theme.id).
         subscribe(themes => {
           if (themes.length > 0) {
-            alert('Suppression impossible : il reste des mots.');
-          } else {
-            this.themeService.deleteTheme(theme).
+            if (!confirm('Il reste des mots ! Vous êtes sûr ?')) {
+              return;
+            }
+          }
+          this.themeService.deleteTheme(theme).
             subscribe(() =>
               this.themes = this.themes.filter(x => x.id !== theme.id));
-          }
       });
     }
   }

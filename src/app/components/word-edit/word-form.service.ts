@@ -43,7 +43,7 @@ export class WordFormService {
   validateInFrenchIsUnic(control: AbstractControl) {
     let doublonEcran = false;
     if (control.parent && control.parent.parent) {
-      const formArray = control.parent && control.parent.parent ? control.parent.parent : null;
+      const formArray = control.parent.parent;
       const listeMotsIdentiquesAuControle = formArray.value.filter(x => x.in_french === control.value);
       doublonEcran = (listeMotsIdentiquesAuControle.length > 0);
     }

@@ -1,20 +1,20 @@
-<div class="themes-container mat-elevation-z8">
-  <button mat-icon-button *ngIf="globales.administrateur" routerLink="/themes/new">
+<div class="verbs-container mat-elevation-z8">
+  <button mat-icon-button *ngIf="globales.administrateur" routerLink="/verbs/new">
     <mat-icon>add</mat-icon>
   </button>
-  <mat-table #table [dataSource]="themes">
+  <mat-table #table [dataSource]="verbs">
 
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> {{globales.administrateur ? 'Actions' : 'Action'}} </mat-header-cell>
-      <mat-cell *matCellDef="let theme">
-        <button mat-icon-button class="icon-button" routerLink="/themes/{{theme.id}}/words">
+      <mat-cell *matCellDef="let verb">
+        <button mat-icon-button class="icon-button" routerLink="/verbs/{{verb.id}}">
           <mat-icon class="icon">search</mat-icon>
         </button>
-        <button mat-icon-button class="icon-button" *ngIf="globales.administrateur" routerLink="/themes/{{theme.id}}/edit">
+        <button mat-icon-button class="icon-button" *ngIf="globales.administrateur" routerLink="/verbs/{{verb.id}}/edit">
           <mat-icon class="icon">mode_edit</mat-icon>
         </button>
-        <button type="button" mat-icon-button class="icon-button" *ngIf="globales.administrateur" (click)="delete(theme)">
+        <button type="button" mat-icon-button class="icon-button" *ngIf="globales.administrateur" (click)="delete(verb)">
           <mat-icon class="icon">delete</mat-icon>
         </button>
       </mat-cell>

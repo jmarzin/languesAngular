@@ -1,0 +1,7 @@
+.mat-column-id {
+  flex: 0 0 50px
+}
+
+.mat-column-language_id, .mat-column-number, .mat-column-last_update {
+  flex: 0 0 100px
+}

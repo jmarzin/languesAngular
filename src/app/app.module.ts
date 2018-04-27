@@ -33,6 +33,13 @@ import { WordFormService } from './components/word-edit/word-form.service';
 import { InFrenchControlService } from './models/words/in-french-control.service';
 import { WordsNewComponent } from './components/words-new/words-new.component';
 import { FormsTypesService } from './models/forms-types/forms-types.service';
+import { FormsTypesComponent } from './components/forms-types/forms-types.component';
+import { FormsTypesEditComponent } from './components/forms-types-edit/forms-types-edit.component';
+import { VerbsFormService } from './models/verbs-forms/verbs-form.service';
+import { FormsTypesFormService } from './components/forms-types-edit/forms-types-form.service';
+import { VerbsComponent } from './components/verbs/verbs.component';
+import { VerbService } from './models/verbs/verb.service';
+import { VerbDetailComponent } from './components/verb-detail/verb-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +53,11 @@ import { FormsTypesService } from './models/forms-types/forms-types.service';
     ThemeWordsComponent,
     WordDetailComponent,
     WordEditComponent,
-    WordsNewComponent
+    WordsNewComponent,
+    FormsTypesComponent,
+    FormsTypesEditComponent,
+    VerbsComponent,
+    VerbDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +81,7 @@ import { FormsTypesService } from './models/forms-types/forms-types.service';
     )
   ],
   providers: [GlobalesService, LanguageService, InMemoryDataService, ThemeService, WordService, NumberControlService,
-              WordFormService, InFrenchControlService, FormsTypesService],
+              WordFormService, InFrenchControlService, FormsTypesService, VerbsFormService, FormsTypesFormService, VerbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
