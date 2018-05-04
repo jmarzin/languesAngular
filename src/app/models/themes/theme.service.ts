@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {GlobalesService} from '../../globales.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +13,10 @@ const httpOptions = {
 @Injectable()
 export class ThemeService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private globales: GlobalesService) { }
 
-  private themesUrl = 'api/themes';  // URL to web api
+  private themesUrl = this.globales.prefixeHttp + 'api/themes';  // URL to web api
 
   /** GET themes from the server */
   getThemes (language_id: string): Observable<Theme[]> {
@@ -22,7 +24,7 @@ export class ThemeService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Theme[]>(`api/themes/?language_id=${language_id}`)
+    return this.http.get<Theme[]>(`${this.themesUrl}/${language_id}`)
       .pipe(
         catchError(this.handleError('getThemes', []))
       );

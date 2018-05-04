@@ -12,10 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { GlobalesService } from './globales.service';
-import { LanguageService } from './models/langues/language.service';
+import { LanguageService } from './models/languages/language.service';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { LanguagesComponent } from './components/languages/languages.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { LanguageDetailComponent } from './components/language-detail/language-detail.component';
@@ -40,6 +40,7 @@ import { FormsTypesFormService } from './components/forms-types-edit/forms-types
 import { VerbsComponent } from './components/verbs/verbs.component';
 import { VerbService } from './models/verbs/verb.service';
 import { VerbDetailComponent } from './components/verb-detail/verb-detail.component';
+import { VerbDetailEditComponent } from './components/verb-detail-edit/verb-detail-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { VerbDetailComponent } from './components/verb-detail/verb-detail.compon
     FormsTypesComponent,
     FormsTypesEditComponent,
     VerbsComponent,
-    VerbDetailComponent
+    VerbDetailComponent,
+    VerbDetailEditComponent
   ],
   imports: [
     BrowserModule,
@@ -76,9 +78,10 @@ import { VerbDetailComponent } from './components/verb-detail/verb-detail.compon
     MatSelectModule,
     HttpClientModule,
     MatDialogModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    HttpClientModule
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   providers: [GlobalesService, LanguageService, InMemoryDataService, ThemeService, WordService, NumberControlService,
               WordFormService, InFrenchControlService, FormsTypesService, VerbsFormService, FormsTypesFormService, VerbService],

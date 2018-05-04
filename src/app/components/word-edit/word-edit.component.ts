@@ -20,6 +20,7 @@ export class WordEditComponent implements OnInit {
   themes: Theme[];
   form: FormGroup;
   in_french: string;
+  submitInactif = false;
 
   constructor(private route: ActivatedRoute,
               private wordService: WordService,
@@ -47,12 +48,13 @@ export class WordEditComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid || this.form.pending) { return; }
+    this.submitInactif = true;
     for (const propriete of Object.getOwnPropertyNames(new Word())) {
       this.word[propriete] = this.form.get(propriete).value;
     }
     this.globales.lastThemeId = this.word.theme_id;
     this.wordService.updateWord(this.word)
-      .subscribe(() => this.router.navigate([`/themes/words/${this.word.theme_id}`]));
+      .subscribe(() => this.router.navigate([`/themes/${this.word.theme_id}/words`]));
   }
 
   onCancel() {

@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {Word} from '../../models/words/word';
 import {Observable} from 'rxjs/Observable';
 import {InFrenchControlService} from '../../models/words/in-french-control.service';
+import {GlobalesService} from '../../globales.service';
 
 @Injectable()
 export class WordFormService {
@@ -10,7 +11,8 @@ export class WordFormService {
   motsVides = ['l', 'le', 'la', 'les', 'd', 'de', 'du', 'des', 'une', 'un', 'à', 'au', 'aux'];
   word: Word;
 
-  constructor(private inFrenchControlService: InFrenchControlService) { }
+  constructor(private inFrenchControlService: InFrenchControlService,
+              private globales: GlobalesService) { }
 
   getForm(word: Word): FormGroup {
     this.word = word;
@@ -49,7 +51,7 @@ export class WordFormService {
     }
     let controleur;
     if (control.value !== this.word.in_french && !doublonEcran) {
-      controleur = this.inFrenchControlService.checkInFrenchUnic(control.value);
+      controleur = this.inFrenchControlService.checkInFrenchUnic(control.value, this.globales.currentLanguage.language_id);
     } else {
       controleur = Observable.of(doublonEcran ? [null] : []);
     }
@@ -57,7 +59,7 @@ export class WordFormService {
       if ( res.length === 0 ) {
         return null;
       } else if ( res[0] ) {
-        return { existeDeja: res.map(x => x.theme_id).join('/') };
+        return { existeDeja: res.map(x => x.in_language).join(' / ') };
       } else {
         return { existeDejaListe: true};
       }

@@ -13,6 +13,7 @@ import {FormsTypesComponent} from './components/forms-types/forms-types.componen
 import {FormsTypesEditComponent} from './components/forms-types-edit/forms-types-edit.component';
 import {VerbsComponent} from './components/verbs/verbs.component';
 import {VerbDetailComponent} from './components/verb-detail/verb-detail.component';
+import {VerbDetailEditComponent} from './components/verb-detail-edit/verb-detail-edit.component';
 
 const routes: Routes = [
   { path: 'languages', component: LanguagesComponent },
@@ -29,8 +30,9 @@ const routes: Routes = [
   { path: 'formstypes', component: FormsTypesComponent},
   { path: 'formstypes/edit', component: FormsTypesEditComponent},
   { path: 'verbs', component: VerbsComponent},
-  { path: 'verbs/new', component: VerbDetailComponent},
-  { path: 'verbs/edit/:id', component: VerbDetailComponent}
+  { path: 'verbs/new', component: VerbDetailEditComponent},
+  { path: 'verbs/:id/edit', component: VerbDetailEditComponent},
+  { path: 'verbs/:id', component: VerbDetailComponent}
 ];
 
 @NgModule({

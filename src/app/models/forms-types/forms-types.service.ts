@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {FormsTypes} from './forms-types';
 import {of} from 'rxjs/observable/of';
+import {GlobalesService} from '../../globales.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +13,10 @@ const httpOptions = {
 @Injectable()
 export class FormsTypesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private globales: GlobalesService) { }
 
-  private formsTypesUrl = 'api/formstypes';  // URL to web api
+  private formsTypesUrl = this.globales.prefixeHttp + 'api/formstypes';  // URL to web api
 
   /** GET verbs-forms-types from the server */
   getFormsTypes (language_id: string): Observable<FormsTypes[]> {
@@ -22,10 +24,19 @@ export class FormsTypesService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<FormsTypes[]>(`api/formstypes/?language_id=${language_id}`)
+    return this.http.get<FormsTypes[]>(`${this.formsTypesUrl}/${language_id}`)
       .pipe(
         catchError(this.handleError('getFormsTypes', []))
       );
+  }
+
+  /** DELETE: delete the theme from the server */
+  deleteFormsType (formsType: FormsTypes | number): Observable<FormsTypes> {
+    const id = typeof formsType === 'number' ? formsType : formsType.id;
+    const url = `${this.formsTypesUrl}/${id}`;
+    return this.http.delete<FormsTypes>(url, httpOptions).pipe(
+      catchError(this.handleError<FormsTypes>('deleteFormsType'))
+    );
   }
 
   /** POST: add a new formsType to the server */

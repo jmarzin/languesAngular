@@ -1,9 +1,40 @@
 const express = require('express');
 const router = express.Router();
-
+const db_languages = require('../queries-languages');
+const db_themes = require('../queries-themes');
+const db_words = require('../queries-words');
+const db_forms_types = require('../queries-forms-types');
+const db_verbs_forms = require('../queries-verbs-forms');
+const db_verbs = require('../queries-verbs');
 /* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
 });
+router.get('/languages', db_languages.getAllLanguages);
+router.get('/languages/:id', db_languages.getSingleLanguage);
+router.post('/languages', db_languages.createLanguage);
+router.put('/languages/:id', db_languages.updateLanguage);
+router.delete('/languages/:id', db_languages.removeLanguage);
+router.get('/themes/:id', db_themes.getTheme);
+router.post('/themes', db_themes.createTheme);
+router.put('/themes', db_themes.updateTheme);
+router.delete('/themes/:id', db_themes.removeTheme);
+router.get('/words', db_words.getWords);
+router.get('/words/:id', db_words.getWord);
+router.post('/words', db_words.createWord);
+router.put('/words', db_words.updateWord);
+router.delete('/words/:id', db_words.removeWord);
+router.get('/formstypes/:id', db_forms_types.getFormsTypes);
+router.post('/formstypes', db_forms_types.createFormsType);
+router.put('/formstypes', db_forms_types.updateFormsType);
+router.delete('/formstypes/:id', db_forms_types.removeFormsType);
+router.get('/verbsforms', db_verbs_forms.getVerbsForms);
+router.post('/verbsforms', db_verbs_forms.createVerbForm);
+router.put('/verbsforms', db_verbs_forms.updateVerbForm);
+router.delete('/verbsforms/:id', db_verbs_forms.removeVerbForm);
+router.get('/verbs/:id', db_verbs.getVerb);
+router.post('/verbs', db_verbs.createVerb);
+router.put('/verbs', db_verbs.updateVerb);
+router.delete('/verbs/:id', db_verbs.removeVerb);
 
 module.exports = router;

@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {WordService} from './word.service';
 import {GlobalesService} from '../../globales.service';
-import {Word} from './word';
+import {Theme} from '../themes/theme';
 
 @Injectable()
 export class InFrenchControlService {
 
-  constructor(private wordService: WordService, private globales: GlobalesService) { }
+  constructor(private wordService: WordService) { }
 
-  checkInFrenchUnic(in_french: string): Observable<Word[]> {
-    return this.wordService.getWorsdByInFrench(in_french)
-      .map(words => words.filter(x => x.language_id === this.globales.currentLanguage.language_id && x.in_french === in_french));
+  checkInFrenchUnic(in_french: string, language_id: string): Observable<Theme[]> {
+    return this.wordService.getThemesWithInFrenchInWord(in_french, language_id);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Language} from '../../models/langues/language';
-import {LanguageService} from '../../models/langues/language.service';
+import {Language} from '../../models/languages/language';
+import {LanguageService} from '../../models/languages/language.service';
 import {GlobalesService} from '../../globales.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class LanguagesComponent implements OnInit {
   delete(language: Language): void {
     if (confirm('Vous êtes sûr ?')) {
       this.globales.languages = this.globales.languages.filter(h => h !== language);
+      // TODO vérifier s'il y a encore des objets pour cette langue
       this.languageService.deleteLanguage(language).subscribe();
     }
   }

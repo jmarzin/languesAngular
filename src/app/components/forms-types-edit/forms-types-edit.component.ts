@@ -10,6 +10,7 @@ import {FormsTypesFormService} from './forms-types-form.service';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-forms-types-edit',
   templateUrl: './forms-types-edit.component.html',
@@ -22,6 +23,7 @@ export class FormsTypesEditComponent implements OnInit {
   form: FormGroup;
   formsTypeVide: FormsTypes;
   hasVerbs: boolean[] = [];
+  submitInactif = false;
 
   constructor(public globales: GlobalesService,
               private formsTypesService: FormsTypesService,
@@ -38,7 +40,7 @@ export class FormsTypesEditComponent implements OnInit {
       this.formsTypes = formsTypes;
       const requetes = this.formsTypes.map(x => this.verbsFormsService.getVerbsFormsByFormType(x.id));
       combineLatest(...requetes).subscribe(x => {
-        x.forEach(verbs => this.hasVerbs.push(verbs.length > 0));
+        x.forEach(y => this.hasVerbs.push(+y[0].count > 0));
         // initialisation d'un type vide
         this.formsTypeVide = new FormsTypes();
         this.formsTypeVide.language_id = this.globales.currentLanguage.language_id;
@@ -61,17 +63,23 @@ export class FormsTypesEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid || this.form.pending) { return; }
+    this.submitInactif = true;
     const typesForm = this.form.getRawValue().typesForm;
+    // suppression des formsTypes non retrouvées
+    const listeToDelete = this.formsTypes.filter(x => typesForm.filter(y => y.id === x.id).length === 0)
+      .map(x => this.formsTypesService.deleteFormsType(x));
     const typesFormsHttp = typesForm.map( x => {
-      this.formsTypeVide.id = x.id;
-      this.formsTypeVide.language_id = x.language_id;
-      this.formsTypeVide.number = x.number;
-      this.formsTypeVide.in_language = x.in_language;
-      return this.formsTypeVide.id === 0 ?
-        this.formsTypesService.addFormsType(this.formsTypeVide) :
-        this.formsTypesService.updateFormsType(this.formsTypeVide);
+      const localFormType = new FormsTypes();
+      localFormType.id = x.id;
+      localFormType.language_id = x.language_id;
+      localFormType.number = x.number;
+      localFormType.in_french = x.in_french;
+      return localFormType.id === 0 ?
+        this.formsTypesService.addFormsType(localFormType) :
+        this.formsTypesService.updateFormsType(localFormType);
     });
-    const chaine = forkJoin(typesFormsHttp);
+    const tableauRequetes = typesFormsHttp.concat(listeToDelete);
+    const chaine = forkJoin(tableauRequetes);
     chaine.subscribe(() => this.router.navigate(['/formstypes']));
   }
 

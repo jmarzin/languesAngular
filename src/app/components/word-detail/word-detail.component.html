@@ -39,7 +39,7 @@
       </tr>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button *ngIf="globales.administrateur" routerLink="/words/edit/{{word.id}}">
+      <button mat-icon-button *ngIf="globales.administrateur" routerLink="/words/{{word.id}}/edit">
         <mat-icon class="icon">mode_edit</mat-icon>
       </button>
       <button mat-icon-button *ngIf="globales.administrateur" (click)="delete(word)">

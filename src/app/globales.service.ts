@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Language} from './models/langues/language';
-import {LanguageService} from './models/langues/language.service';
+import {Language} from './models/languages/language';
 import {Router} from '@angular/router';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class GlobalesService {
   currentLanguage: Language = null;
   administrateur = true;
-  languages: Language[];
+  languages: Language[]; // tableau des langues initialisé dans app.component
   lastThemeId: number;
+  prefixeHttp: string;
 
-  constructor(private langueService: LanguageService,
-              private router: Router) {
-    this.langueService.getLanguages()
-      .subscribe(langues => this.languages = langues);
+  constructor(private router: Router) {
+    this.prefixeHttp = environment.port_for_api;
   }
 
   checkContext(adminRequired: boolean, languageRequired: boolean): void {

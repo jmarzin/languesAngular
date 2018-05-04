@@ -4,6 +4,7 @@ import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
 import {Verb} from './verb';
+import {GlobalesService} from '../../globales.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +13,10 @@ const httpOptions = {
 @Injectable()
 export class VerbService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private globales: GlobalesService) { }
 
-  private verbsUrl = 'api/verbs';  // URL to web api
+  private verbsUrl = this.globales.prefixeHttp + 'api/verbs';  // URL to web api
 
   /** GET verbs from the server */
   getVerbs (language_id: string): Observable<Verb[]> {
@@ -22,7 +24,7 @@ export class VerbService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Verb[]>(`api/verbs/?language_id=${language_id}`)
+    return this.http.get<Verb[]>(`${this.verbsUrl}/${language_id}`)
       .pipe(
         catchError(this.handleError('getVerbs', []))
       );
@@ -37,11 +39,11 @@ export class VerbService {
   }
 
   /** DELETE: delete the verb from the server */
-  deleteVerb (verb: Verb | number): Observable<Verb> {
+  deleteVerb (verb: Verb | number): Observable<any> {
     const id = typeof verb === 'number' ? verb : verb.id;
     const url = `${this.verbsUrl}/${id}`;
 
-    return this.http.delete<Verb>(url, httpOptions).pipe(
+    return this.http.delete(url, httpOptions).pipe(
       catchError(this.handleError<Verb>('deleteVerb'))
     );
   }

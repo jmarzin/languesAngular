@@ -31,14 +31,13 @@ export class VerbsComponent implements OnInit {
       this.verbsFormService.getVerbsFormsByVerb(verb.id).
         subscribe(verbs => {
           if (verbs.length > 0) {
-          if (!confirm('Il reste des formes verbales ! Vous êtes sûr ?')) {
-            return;
+            if (!confirm('Il reste des formes verbales ! Vous êtes sûr ?')) {
+              return;
+            }
           }
-        }
-        this.verbService.deleteVerb(verb).
-        subscribe(() =>
-          this.verbs = this.verbs.filter(x => x.id !== verb.id));
-      });
+          this.verbService.deleteVerb(verb).subscribe(() =>
+            this.verbs = this.verbs.filter(x => x.id !== verb.id));
+        });
     }
   }
 }

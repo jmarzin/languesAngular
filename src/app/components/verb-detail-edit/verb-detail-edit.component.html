@@ -1,0 +1,22 @@
+<div class="verb-detail-edit-container mat-elevation-z8">
+  <p *ngIf="lectureEnCours">En attente de la liste...</p>
+  <div *ngIf="!lectureEnCours">
+    <form  [formGroup]="form" (submit)="onSubmit()">
+      <mat-form-field class="champ">
+        <input matInput placeholder="verb_in_language" formControlName="verb_in_language">
+        <mat-error *ngIf="form.controls['verb_in_language'].hasError('required')">
+          Cette donnée est obligatoire
+        </mat-error>
+      </mat-form-field>
+      <div formArrayName="tableau_verb" *ngFor="let formGroup of form.controls['tableau_verb'].controls; let i=index;">
+        <div [formGroupName]="i">
+          <mat-form-field class="champ">
+            <input matInput placeholder="{{formsTypes[formGroup.get('rang_type').value].in_french}}" formControlName="in_language_form">
+          </mat-form-field>
+        </div>
+      </div>
+      <button mat-raised-button type="submit" [disabled]="submitInactif">Submit</button>
+      <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>

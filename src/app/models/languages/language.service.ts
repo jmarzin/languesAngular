@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {GlobalesService} from '../../globales.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,13 +13,15 @@ const httpOptions = {
 @Injectable()
 export class LanguageService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private globales: GlobalesService) { }
 
-  private languagesUrl = 'api/languages';  // URL to web api
+  private languagesUrl = this.globales.prefixeHttp + 'api/languages';  // URL to web api
 
   /** GET languages from the server */
   getLanguages (): Observable<Language[]> {
-    return this.http.get<Language[]>(this.languagesUrl)
+    const res = this.http.get<Language[]>(this.languagesUrl);
+    return res
       .pipe(
         catchError(this.handleError('getLanguages', []))
       );
@@ -52,7 +55,8 @@ export class LanguageService {
 
   /** PUT: update the language on the server */
   updateLanguage (language: Language): Observable<any> {
-    return this.http.put(this.languagesUrl, language, httpOptions).pipe(
+    const url = `${this.languagesUrl}/${language.id}`;
+    return this.http.put(url, language, httpOptions).pipe(
       catchError(this.handleError<any>('updateLanguage'))
     );
   }

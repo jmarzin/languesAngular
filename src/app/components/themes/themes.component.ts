@@ -28,10 +28,11 @@ export class ThemesComponent implements OnInit {
 
   delete(theme: Theme): void {
     if (confirm('Vous êtes sûr ?')) {
-      this.wordService.getWordsByTheme(theme.id).
-        subscribe(themes => {
-          if (themes.length > 0) {
-            if (!confirm('Il reste des mots ! Vous êtes sûr ?')) {
+      this.wordService.getCountWordsByTheme(theme.id).
+        subscribe(rep => {
+          const count = +rep[0].count;
+          if (count > 0) {
+            if (!confirm(`Il reste ${count} mot${count > 1 ? 's' : ''} ! Vous êtes sûr ?`)) {
               return;
             }
           }

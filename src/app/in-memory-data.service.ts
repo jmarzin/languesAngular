@@ -9,7 +9,9 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 2, language_id: 'en', in_language: 'to have', last_update: ''},
     ];
     const verbsforms = [
-      { id: 1, verb_id: 1, form_type_id: 9, language_id: 'en', in_language: 'was', last_update: ''}];
+      { id: 1, verb_id: 1, form_type_id: 9, language_id: 'en', in_language: 'was/were', last_update: ''},
+      { id: 2, verb_id: 2, form_type_id: 10, language_id: 'en', in_language: 'had', last_update: ''}
+    ];
     const formstypes = [
       { id: 1, language_id: 'es', number: 1, in_language: 'gérondif', last_update: ''},
       { id: 2, language_id: 'es', number: 2, in_language: 'participe passé', last_update: ''},

@@ -3,6 +3,7 @@ export class Language {
   language_id = '';
   name = '';
   icon = '';
+  last_update = '';
 
   public iconUrl(): string {
     return `./assets/${this.icon}`;

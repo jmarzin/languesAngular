@@ -18,11 +18,11 @@
               <input matInput type="number" placeholder="number" formControlName="number">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="in_language" formControlName="in_language">
-              <mat-error *ngIf="form.controls['typesForm'].controls[i].get('in_language').hasError('required')">
+              <input matInput placeholder="in_french" formControlName="in_french">
+              <mat-error *ngIf="form.controls['typesForm'].controls[i].get('in_french').hasError('required')">
                 Cette donnée est obligatoire
               </mat-error>
-              <mat-error *ngIf="form.controls['typesForm'].controls[i].get('in_language').hasError('existeDejaListe')">
+              <mat-error *ngIf="form.controls['typesForm'].controls[i].get('in_french').hasError('existeDejaListe')">
                 Ce mot existe déjà dans cet écran
               </mat-error>
             </mat-form-field>
@@ -45,7 +45,7 @@
       </mat-card>
     </div>
     <div *ngIf="form.controls['typesForm'].controls.length % 10 === 0" class="error">Pensez à soumettre votre saisie !</div>
-    <button mat-raised-button type="submit">Submit</button>
+    <button mat-raised-button type="submit" [disabled]="submitInactif">Submit</button>
     <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
   </form>
 </div>

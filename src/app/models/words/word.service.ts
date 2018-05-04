@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {GlobalesService} from '../../globales.service';
+import {Theme} from '../themes/theme';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +14,10 @@ const httpOptions = {
 @Injectable()
 export class WordService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private globales: GlobalesService) { }
 
-  private wordsUrl = 'api/words';  // URL to web api
+  private wordsUrl = this.globales.prefixeHttp + 'api/words';  // URL to web api
 
   /** GET word by id. Will 404 if id not found */
   getWord (id: number): Observable<Word> {
@@ -29,19 +32,30 @@ export class WordService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Word[]>(`api/words/?theme_id=${theme_id}`)
+    return this.http.get<Word[]>(`${this.wordsUrl}?theme_id=${theme_id}`)
       .pipe(
         catchError(this.handleError('getWordsByTheme', []))
       );
   }
 
-  getWorsdByInFrench(in_french: string): Observable<Word[]> {
+  getCountWordsByTheme (theme_id: number): Observable<any> {
+    if (theme_id === 0) {
+      // if not search term, return empty hero array.
+      return of(0);
+    }
+    return this.http.get<any>(`${this.wordsUrl}?theme_id=${theme_id}&count_only=true`)
+      .pipe(
+        catchError(this.handleError('getWordsByTheme', null))
+      );
+  }
+
+  getThemesWithInFrenchInWord(in_french: string, language_id: string): Observable<Theme[]> {
     if (in_french.trim().length === 0) {
       return of([]);
     }
-    return this.http.get<Word[]>(`api/words/?in_french=${in_french}`)
+    return this.http.get<Theme[]>(`${this.wordsUrl}/?in_french=${in_french}&language_id=${language_id}`)
       .pipe(
-        catchError(this.handleError('getWordsByInFrench', []))
+        catchError(this.handleError('ThemesWithInFrenchInWord', []))
     );
   }
 

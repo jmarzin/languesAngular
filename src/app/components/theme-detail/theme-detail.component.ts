@@ -21,6 +21,7 @@ export class ThemeDetailComponent implements OnInit {
   themes: Theme[];
   form: FormGroup;
   url: string;
+  submitInactif = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -52,10 +53,10 @@ export class ThemeDetailComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid || this.form.pending) { return; }
+    this.submitInactif = true;
     for (const propriete of Object.getOwnPropertyNames(new Theme())) {
       this.theme[propriete] = this.form.get(propriete).value;
     }
-
     const requete = this.url === 'new' ? this.themeService.addTheme(this.theme) : this.themeService.updateTheme(this.theme);
     requete.subscribe(() => this.router.navigate(['/themes']));
   }

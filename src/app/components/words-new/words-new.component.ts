@@ -24,6 +24,7 @@ export class WordsNewComponent implements OnInit {
   form: FormGroup;
   motsForm: FormArray;
   word: Word;
+  submitInactif = false;
 
   constructor(private globales: GlobalesService,
               private themeService: ThemeService,
@@ -70,13 +71,14 @@ export class WordsNewComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid || this.form.pending) { return; }
+    this.submitInactif = true;
     const valeursForm = this.form.value.motsForm;
     const motsCreations = valeursForm.map( x => {
       this.word.in_french = x.in_french;
       this.word.language_level = x.language_level;
       this.word.pronunciation = x.pronunciation;
       this.word.sort_word = x.sort_word;
-      this.word.in_language = x.in_language;
+      this.word.in_french = x.in_language;
       return this.wordService.addWord(this.word);
     });
     const chaine = forkJoin(motsCreations);

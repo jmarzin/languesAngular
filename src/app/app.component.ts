@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {LanguageService} from './models/languages/language.service';
+import {GlobalesService} from './globales.service';
 
 
 @Component({
@@ -7,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'Langues';
+
+  constructor(private langueService: LanguageService,
+              private globales: GlobalesService) {
+    this.langueService.getLanguages()
+      .subscribe(langues => {
+        this.globales.languages = langues;
+      });
+  }
 }

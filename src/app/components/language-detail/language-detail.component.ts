@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Language } from '../../models/langues/language';
+import { Language } from '../../models/languages/language';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { LanguageService } from '../../models/langues/language.service';
+import { LanguageService } from '../../models/languages/language.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlobalesService } from '../../globales.service';
 import { Observable } from 'rxjs/Observable';
@@ -18,6 +18,7 @@ export class LanguageDetailComponent implements OnInit {
   language: Language = new Language();
   form: FormGroup;
   url: string;
+  submitInactif = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,6 +42,7 @@ export class LanguageDetailComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) { return; }
+    this.submitInactif = true;
     this.language.language_id = this.form.get('language_id').value;
     this.language.name = this.form.get('name').value;
     this.language.icon = this.form.get('icon').value;

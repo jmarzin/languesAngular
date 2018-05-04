@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {GlobalesService} from '../../globales.service';
-import {Language} from '../../models/langues/language';
+import {Language} from '../../models/languages/language';
 import {Router} from '@angular/router';
 
 @Component({
